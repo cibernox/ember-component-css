@@ -1,11 +1,13 @@
 import initRouteStyles from '../utils/init-route-styles';
+import { gte } from "ember-compatibility-helpers";
 
-// This file is removed from the build in Ember < 3.6
 export function initialize(appInstance) {
-  let router = appInstance.lookup('service:router');
-  router.on('routeDidChange', function(transition) {
-    initRouteStyles(appInstance, transition.routeInfos);
-  });
+  if (gte("3.6.0-beta.1")) {
+    let router = appInstance.lookup('service:router');
+    router.on('routeDidChange', function(transition) {
+      initRouteStyles(appInstance, transition.routeInfos);
+    });
+  }
 }
 
 export default {
